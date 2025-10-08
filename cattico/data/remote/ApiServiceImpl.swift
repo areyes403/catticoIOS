@@ -7,25 +7,19 @@
 
 import Foundation
 
-class ApiServiceImpl: ApiService {
+final class ApiServiceImpl: ApiService {
     
     private init(){}
     
     static var instance: ApiServiceImpl = ApiServiceImpl()
-    
-    private static let baseUrl: String = "https://api.thecatapi.com/v1"
-
 
     func fetchDataCats() async throws -> [CatData] {
         do{
-            var url = URL(string:ApiServiceImpl.baseUrl+"/images/search")!
-    
-            url.append(queryItems:[
-                        URLQueryItem(name: "limit", value: "10")
-            ])
-            
-            var request = URLRequest(url: url)
-            request.httpMethod = "GET"
+            let request = URLRequestBuilder()
+                .setMethod(method:"GET")
+                .setPath(path:"images/search")
+                .addParam(name: "limit", value: "10")
+                .build()
             
             let (data, response) = try await URLSession.shared.data(for: request)
             guard ((response as? HTTPURLResponse)?.statusCode) != nil else
