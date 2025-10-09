@@ -124,7 +124,6 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Next"/>
                                 <connections>
-                                    <action selector="onClick:" destination="rYk-VG-TPj" eventType="touchUpInside" id="qbs-b7-pA1"/>
                                     <segue destination="03s-fe-aa6" kind="show" id="aIs-JP-8xp"/>
                                 </connections>
                             </button>
@@ -229,7 +228,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="uuc-wy-wGk">
-                                <rect key="frame" x="16" y="57" width="361" height="296.66666666666669"/>
+                                <rect key="frame" x="16" y="57" width="361" height="324.66666666666669"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pQd-Jd-AFI">
                                         <rect key="frame" x="0.0" y="0.0" width="361" height="128"/>
@@ -260,6 +259,9 @@
                                             <segue destination="bK1-I6-uwm" kind="show" id="c7u-In-VoA"/>
                                         </connections>
                                     </button>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="fc0-7e-Da6">
+                                        <rect key="frame" x="0.0" y="304.66666666666669" width="361" height="20"/>
+                                    </activityIndicatorView>
                                 </subviews>
                             </stackView>
                         </subviews>
