@@ -6,6 +6,7 @@
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -118,27 +119,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y9e-Dl-UKo">
-                                <rect key="frame" x="167" y="439" width="60" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Next"/>
-                                <connections>
-                                    <segue destination="03s-fe-aa6" kind="show" id="aIs-JP-8xp"/>
-                                </connections>
-                            </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="q8q-8o-HLd">
+                                <rect key="frame" x="16" y="119" width="361" height="634"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VNa-V2-eAL">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CatViewCell" id="O7y-4f-R5y" customClass="CollectionViewCell" customModule="cattico" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Y2t-h3-G3M">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UKx-RS-oFr">
+                                                    <rect key="frame" x="-56" y="0.0" width="240" height="128"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                        </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="imgCat" destination="UKx-RS-oFr" id="Fb1-GS-vOD"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wbW-wT-cfH"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="wbW-wT-cfH" firstAttribute="bottom" secondItem="q8q-8o-HLd" secondAttribute="bottom" constant="16" id="5SL-VR-yB0"/>
+                            <constraint firstItem="q8q-8o-HLd" firstAttribute="leading" secondItem="wbW-wT-cfH" secondAttribute="leading" constant="16" id="5o1-A1-k6K"/>
+                            <constraint firstItem="wbW-wT-cfH" firstAttribute="trailing" secondItem="q8q-8o-HLd" secondAttribute="trailing" constant="16" id="CCw-pZ-kl8"/>
+                            <constraint firstItem="q8q-8o-HLd" firstAttribute="top" secondItem="wbW-wT-cfH" secondAttribute="top" constant="16" id="b1o-th-1Ky"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" springLoaded="YES" id="U7H-IR-OZl">
                         <imageReference key="selectedImage" image="house.fill" catalog="system" symbolScale="default" variableValue="5.5511151231257827e-17"/>
                     </tabBarItem>
                     <navigationItem key="navigationItem" id="oyk-zy-zT9"/>
+                    <connections>
+                        <outlet property="collectionView" destination="q8q-8o-HLd" id="vqe-O8-7ib"/>
+                        <segue destination="03s-fe-aa6" kind="show" identifier="navHomeToDetails" id="Atg-84-7BA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XrA-Pz-jf2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2761" y="-711"/>
+            <point key="canvasLocation" x="2759.5419847328244" y="-711.26760563380287"/>
         </scene>
         <!--Cat Details View Controller-->
         <scene sceneID="tPp-zu-gGl">
@@ -161,7 +192,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Button"/>
                                 <connections>
-                                    <segue destination="2Yd-HI-YzD" kind="show" id="fkc-JU-I59"/>
+                                    <action selector="goToImage:" destination="03s-fe-aa6" eventType="touchUpInside" id="rN9-oe-jEI"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -169,6 +200,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="TLQ-1p-EzF"/>
+                    <connections>
+                        <segue destination="2Yd-HI-YzD" kind="show" identifier="navDetailsToImage" id="keH-GT-sK4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8PW-x7-HdI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

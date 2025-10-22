@@ -22,6 +22,22 @@ class LoginViewController: UIViewController {
     @IBAction func btnSignInAction(_ sender: Any) {
         presenter?.login(email: "", password: "")
     }
+    
+    func goToMain(){
+        if let window = self.view.window {
+            let next = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
+
+            UIView.transition(
+                with: window,
+                duration: 0.5,
+                options: [.transitionCrossDissolve], // Puedes cambiar el tipo de animación
+                animations: {
+                    window.rootViewController = next
+                },
+                completion: nil
+            )
+        }
+    }
 
 }
 
@@ -32,20 +48,8 @@ extension LoginViewController:LoginUI {
     
     func successLogin() {
         print("success")
-        DispatchQueue.main.async {
-            if let window = self.view.window {
-                let next = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
-
-                UIView.transition(
-                    with: window,
-                    duration: 0.5,
-                    options: [.transitionCrossDissolve], // Puedes cambiar el tipo de animación
-                    animations: {
-                        window.rootViewController = next
-                    },
-                    completion: nil
-                )
-            }
+        DispatchQueue.main.async() { [weak self] in
+            self?.goToMain()
         }
     }
     
