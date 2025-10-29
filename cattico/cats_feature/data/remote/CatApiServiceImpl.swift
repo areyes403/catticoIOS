@@ -8,17 +8,18 @@
 import Foundation
 
 final class CatApiServiceImpl: CatApiService {
-    
+        
     private init(){}
     
     static var instance: CatApiServiceImpl = CatApiServiceImpl()
 
     func fetchDataCats() async throws -> [CatData] {
-        do{
+        return try await handleNetworking{
             let request = URLRequestBuilder()
                 .setMethod(method:"GET")
-                .setPath(path:"images/search")
+                .setPath(path:"search")
                 .addParam(name: "limit", value: "10")
+                .addParam(name: "has_breeds", value: "1")
                 .build()
             
             let (data, response) = try await URLSession.shared.data(for: request)
@@ -31,21 +32,28 @@ final class CatApiServiceImpl: CatApiService {
             let catsData = try decoder.decode([CatData].self, from: data)
             
             return catsData
-            
-        } catch let error as DecodingError {
-            throw NetworkingError.decodingFailed(innerError: error)
-        } catch let error as EncodingError {
-            throw NetworkingError.encodingFailed(innerError: error)
-        } catch let error as URLError {
-            throw NetworkingError.requestFailed(innerError: error)
-        } catch let error as NetworkingError {
-            throw error
-        } catch {
-            throw NetworkingError.otherError(innerError: error)
         }
-        
     }
     
+    func fetchCat(id: String) async throws -> InCatData {
+        return try await handleNetworking{
+            let request = URLRequestBuilder()
+                .setMethod(method:"GET")
+                .setPath(path:id)
+                .build()
+            
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard ((response as? HTTPURLResponse)?.statusCode) != nil else
+            {
+                throw NetworkingError.invalidStatusCode(statusCode: -1)
+            }
+            
+            let decoder = JSONDecoder()
+            let catData = try decoder.decode(InCatData.self, from: data)
+            
+            return catData
+        }
+    }
     
 }
 

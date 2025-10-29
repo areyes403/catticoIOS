@@ -6,12 +6,13 @@
 //
 protocol CatsInteractorProtocol:AnyObject{
     func fetchCats() async throws -> [Cat]
+    func fetchCat(id:String) async throws -> CatBreed
 }
 
 class CatsInteractor:CatsInteractorProtocol {
 
     private var apiService:CatApiService
-    var presenter: CatsPresenter?
+    //var presenter: CatsPresenter?
     
     init(apiService:CatApiService = CatApiServiceImpl.instance) {
         self.apiService = apiService
@@ -28,5 +29,13 @@ class CatsInteractor:CatsInteractorProtocol {
         }
     }
     
+    func fetchCat(id: String) async throws -> CatBreed {
+        let dto = try await apiService.fetchCat(id: id)
+        if let breed = dto.breeds?.first {
+            return breed
+        }else{
+            throw Errors.NoDataFound
+        }
+    }
     
 }

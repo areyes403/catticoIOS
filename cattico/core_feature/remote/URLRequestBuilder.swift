@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class URLRequestBuilder {
-    private let url = "https://api.thecatapi.com/v1/"
+    private let url = "https://api.thecatapi.com/v1/images/"
     private var data:URLRequestData = URLRequestData()
     
     func setPath(path:String) -> URLRequestBuilder {

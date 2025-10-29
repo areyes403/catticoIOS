@@ -16,6 +16,8 @@ class HomeViewController: UIViewController {
     
     var cats:[Cat] = []
     
+    var selectedCat: Cat?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("HomeViewController...")
@@ -26,8 +28,14 @@ class HomeViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
     }
-
-    @IBOutlet weak var cview: UICollectionView!
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "navHomeToDetails" {
+            if let destinoVC = segue.destination as? CatDetailsViewController {
+                destinoVC.cat = selectedCat
+            }
+        }
+    }
     
 }
 
@@ -98,13 +106,10 @@ extension HomeViewController:
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedCat = cats[indexPath.item]
-        print("Seleccionaste el gato: \(selectedCat)")
+        let sCat = cats[indexPath.item]
+        selectedCat = sCat
         performSegue(withIdentifier: "navHomeToDetails", sender: self)
     }
-
-
-
     
 }
 
